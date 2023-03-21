@@ -18,27 +18,28 @@ export interface IMovieRepository {
 export class MovieRepository implements IMovieRepository {
 
   findById = async (id :number): Promise<Movies | null> => {
-    const result = await MoviesTable.findOne({
-      where : {id}
-    })
+    const result = await MoviesTable.findByPk(id)
     if(!result) return null
-
     return result.get({plain : true})
   };
   findAll = async (filter : MovieFilter): Promise<Movies[]> => {
     const {keyword, page, limit} = filter
     const offset = limit * (page - 1) 
-    const result = await  MoviesTable.findAll({
-      where : {
+   let where = {}
+    if(keyword){
+      where = {
         [Op.or] :{
           title :{ [Op.like] : keyword},
           description :{ [Op.like] : keyword},
         }
-      },
+      }
+    }
+    const result = await  MoviesTable.findAll({
+      where,
       limit,
       offset
     })
-    if(!result) return []
+    if(result.length == 0) return []
 
     return result.map(m => m.get({plain : true}))
   };

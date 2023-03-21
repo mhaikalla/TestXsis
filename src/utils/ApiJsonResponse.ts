@@ -32,7 +32,7 @@ export interface HttpResponse {
 
 export interface SuccessResponse<T> extends HttpResponse {
   result?: T,
-  code : number
+  code : number,
 }
 
 export interface BadRequestResponse<T> extends HttpResponse {
@@ -54,19 +54,27 @@ export interface UnhandledErrorResponse<T> extends HttpResponse {
 }
 
 export class ResponseBuilder {
-  static ok = <T>(result?: T): SuccessResponse<T> => {
+  static ok = <T>(result?: T, message?: string): SuccessResponse<T> => {
     const response: SuccessResponse<T> = {
-      status: "OK",
+      status: message || HttpResponseStatus.OK.STATUS,
       code  : HttpResponseStatus.OK.CODE,
       result: result
     }
     return response
   }
 
+  static created = <T>(result?: T, message?: string): SuccessResponse<T> => {
+    const response: SuccessResponse<T> = {
+      status: message || HttpResponseStatus.CREATED.STATUS,
+      code  : HttpResponseStatus.CREATED.CODE,
+      result: result
+    }
+    return response
+  }
   static badRequest = <T>(errors: T, message?: string): BadRequestResponse<T> => {
     const response: BadRequestResponse<T> = {
-      status: "BadRequest",
-      message: message || "Bad request",
+      status: HttpResponseStatus.BAD_REQUEST.STATUS,
+      message: message || "Bad Request",
       errorCode: HttpResponseStatus.BAD_REQUEST.CODE,
       errors: errors
     }
@@ -75,7 +83,7 @@ export class ResponseBuilder {
 
   static notFound = <T>(message?: string): BadRequestResponse<T> => {
     const response: BadRequestResponse<T> = {
-      status: "NotFound",
+      status: HttpResponseStatus.NOTFOUND.STATUS,
       message: message || "Data Not Found",
       errorCode: HttpResponseStatus.NOTFOUND.CODE,
     }
@@ -84,7 +92,7 @@ export class ResponseBuilder {
 
   static internalServerError = <T>(message?: string, stack?: T): UnhandledErrorResponse<T> => {
     const response: UnhandledErrorResponse<T> = {
-      status: "InternalServerError",
+      status: HttpResponseStatus.INTERNAL_SERVER_ERROR.STATUS,
       message: message || "Internal server error",
       errorCode: HttpResponseStatus.INTERNAL_SERVER_ERROR.CODE,
       stack : String(stack)

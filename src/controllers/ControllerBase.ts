@@ -2,8 +2,13 @@ import { ResponseBuilder } from "../utils/ApiJsonResponse";
 import { Response } from "express";
 
 export class ControllerBase {
-    ok<T>(res: Response, data?: T) {
+    ok<T>(res: Response, data?: T, messageStatus? : string) {
         const response = ResponseBuilder.ok<T>(data)
+        return res.status(response.code).send(response)
+    }
+
+    created<T>(res: Response, data?: T) {
+        const response = ResponseBuilder.created<T>(data)
         return res.status(response.code).send(response)
     }
     

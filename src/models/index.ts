@@ -10,11 +10,11 @@ export interface Movies {
 }
 
 export class MovieFilter extends QueryFilter<Movies> {
-  title? : string
-  desciption? : string
-  rating? : number
-  rating_from? : number
-  rating_to? : number
+  title? : string | null
+  desciption? : string | null
+  rating? : number | null
+  rating_from? : number | null
+  rating_to? : number | null
   constructor(
     filter: QueryFilterParam<Movies>,
     title? : string,
@@ -24,10 +24,10 @@ export class MovieFilter extends QueryFilter<Movies> {
     rating_to? : number
   ) {
     super(filter);
-    this.title = title,
-    this.desciption = desciption,
-    this.rating = rating
-    this.rating_from = rating_from,
-    this.rating_to = rating_to
+    this.title = title ? String(title) : null
+    this.desciption = title ? String(desciption) : null
+    this.rating = rating ? rating : Number(rating)
+    this.rating_from = rating_from ? Number(rating_from) : null,
+    this.rating_to = rating_to ? Number(rating_to) : null
   }
 }

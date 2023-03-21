@@ -14,7 +14,7 @@ export class MovieController extends ControllerBase {
 
   findById = async (req: Request, res: Response, next: NextFunction) => {
     const params = req.params;
-    const id = Number(params)
+    const id = Number(params.id)
     try {
       const result = await this._movieService.findMovieById(id)
       if(!result)
@@ -64,7 +64,7 @@ export class MovieController extends ControllerBase {
         return this.NotFound(res, "Data Tidak Ditemukan")
       }
       else{
-        return this.ok(res, result);
+        return this.created(res, result, "Data telah diinput");
       }
     } catch (error) {
      
@@ -73,14 +73,15 @@ export class MovieController extends ControllerBase {
   };
   update = async (req: Request, res: Response, next: NextFunction) => {
     const bodyJson = req.body;
+    const id = Number(req.params.id);
     try {
-      const result = await this._movieService.update(bodyJson)
+      const result = await this._movieService.update(bodyJson, id)
       if(!result)
       {
         return this.NotFound(res, "Data Tidak Ditemukan")
       }
       else{
-        return this.ok(res, result);
+        return this.ok(res, result, "Data telah diupdate");
       }
     } catch (error) {
      
@@ -96,7 +97,7 @@ export class MovieController extends ControllerBase {
         return this.NotFound(res, "Data Tidak Ditemukan")
       }
       else{
-        return this.ok(res, result);
+        return this.ok(res, result, "Data telah dihapus");
       }
     } catch (error) {
      

@@ -23,7 +23,7 @@ export class QueryFilter<T> implements SortingFilter<T>, PagingFilter {
         this.limit = filter.limit ? parseInt(filter.limit) : 10
         this.sort_col = filter.sort_col ? filter.sort_col as keyof T : undefined
         this.sort_dir = filter.sort_dir ? filter.sort_dir as SortDirection : undefined
-        this.keyword = filter.keyword
+        this.keyword = filter.keyword || ""
     }
 }
 
