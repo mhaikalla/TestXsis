@@ -7,8 +7,8 @@ export class ControllerBase {
         return res.status(response.code).send(response)
     }
 
-    created<T>(res: Response, data?: T) {
-        const response = ResponseBuilder.created<T>(data)
+    created<T>(res: Response, data?: T, message? : string) {
+        const response = ResponseBuilder.created<T>(data, message)
         return res.status(response.code).send(response)
     }
     
