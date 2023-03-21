@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2016",
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": "."
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "swc": true,
+    "compilerOptions": {
+      "noEmit": true
+    }
+  },
+  "exclude": [
+    "src/services/__test__/**/*",
+    ".git",
+    ".app-cache",
+    ".npm",
+    ".npm-tmp",
+    "dist",
+    "repo_compare_result/*",
+    "dist*",
+    "node_modules",
+    "subfolder/dist",
+    "subfolder/node_modules",
+    "**/dist/*",
+    "**/node_modules/*",
+    "coverage/**/*"
+  ]
+}

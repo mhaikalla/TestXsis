@@ -1,0 +1,21 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/Xsis"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Movies {
+  id                    Int                @id @default(autoincrement())
+  title                 String
+  description           String            
+  rating                Float
+  image                 String
+  created_at            DateTime           @default(now())
+  updated_at            DateTime?     
+  @@map(name: "movies")
+}
