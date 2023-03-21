@@ -19,8 +19,8 @@ const validate = (validations: ValidationChain[]) => {
         if (errors.isEmpty()) {
             return next();
         }
-        const badRequestResponse = ResponseBuilder.badRequest("ValidationError", errors.array(), "Validation error")
-        return res.status(400).send(badRequestResponse)
+        const badRequestResponse = ResponseBuilder.badRequest(errors.array(), "Validation error")
+        return res.status(badRequestResponse.errorCode).send(badRequestResponse)
     };
 };
 

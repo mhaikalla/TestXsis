@@ -6,7 +6,7 @@ export class ControllerBase {
         const response = ResponseBuilder.ok<T>(data)
         return res.status(response.code).send(response)
     }
-
+    
     internalServerError<T>(res: Response, message?: string, errors?: T) {
         const response = ResponseBuilder.internalServerError<T>(message, errors)
         return res.status(response.errorCode).send(response)

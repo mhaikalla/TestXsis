@@ -1,16 +1,11 @@
 node_modules/
 build/
-.env
-.idea
 package-lock.json
 src/db/prisma/generated
-src/db/prisma/evo/schema.prisma
 .DS_Store
 yarn.lock
 yarn-error.log
 coverage
-src/db/prisma/evo/schema.prisma
 logs
-pnpm-lock.yaml
-repo_compare_result
 npm.log
+.vscode

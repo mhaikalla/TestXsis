@@ -1,6 +1,6 @@
 import BaseRoutes from "../BaseRoutes";
 import validate from "../../middlewares/ValidatorMiddleware";
-import { createMovieValidator, MovieValidator } from "../../validations/MovieValidator";
+import { createMovieValidator, movieValidator } from "../../validations/MovieValidator";
 import { MovieController } from "../../controllers/MovieController";
 
 export class MovieRoutes extends BaseRoutes {
@@ -12,10 +12,10 @@ export class MovieRoutes extends BaseRoutes {
   }
 
   public routes(): void {
-    this.router.get('/:id', validate(MovieValidator), this._movieController.findAllMovie);
-    // this.router.get('/:id', this._movieController.findMovieById);
-    // this.router.put('/:id', this._movieController.update);
-    // this.router.delete('/:id', this._movieController.delete);
-    // this.router.post('/create', this._movieController.create);
+    this.router.get('/', validate(movieValidator), this._movieController.findAll);
+    this.router.get('/:id', this._movieController.findById);
+    this.router.put('/:id', this._movieController.update);
+    this.router.delete('/:id', this._movieController.delete);
+    this.router.post('/create',validate(createMovieValidator), this._movieController.create);
   }
 }

@@ -1,12 +1,8 @@
 import express, { Application, Response } from 'express';
 import bodyParser from 'body-parser';
-import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
-import fileUpload from 'express-fileupload';
 import { config as dotenv } from 'dotenv';
-
-import { exceptionHandler } from './src/middlewares/ExceptionHandler';
 import {ApiV1} from './src/routers/v1/index'
 
 
@@ -23,7 +19,6 @@ class App {
   }
   protected plugins(): void {
     this.app.use(bodyParser.json({ limit: '50mb' }));
-    this.app.use(compression());
     this.app.use(helmet());
     this.app.use(cors());
   }
@@ -37,16 +32,7 @@ class App {
         unixTimestamp: Math.round(new Date().getTime() / 1000),
       });
     });
-
-    this.app.use(
-      fileUpload({
-        createParentPath: true,
-        useTempFiles: false,
-      })
-    );
-
-    this.app.use('/api/v1', apiV1.router)
-    this.app.use(exceptionHandler)
+    this.app.use('/api', apiV1.router)
   }
 }
 

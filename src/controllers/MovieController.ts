@@ -71,4 +71,36 @@ export class MovieController extends ControllerBase {
       return next(error);
     }
   };
+  update = async (req: Request, res: Response, next: NextFunction) => {
+    const bodyJson = req.body;
+    try {
+      const result = await this._movieService.update(bodyJson)
+      if(!result)
+      {
+        return this.NotFound(res, "Data Tidak Ditemukan")
+      }
+      else{
+        return this.ok(res, result);
+      }
+    } catch (error) {
+     
+      return next(error);
+    }
+  };
+  delete = async (req: Request, res: Response, next: NextFunction) => {
+    const id = Number(req.params.id);
+    try {
+      const result = await this._movieService.delete(id)
+      if(result[1] === 404)
+      {
+        return this.NotFound(res, "Data Tidak Ditemukan")
+      }
+      else{
+        return this.ok(res, result);
+      }
+    } catch (error) {
+     
+      return next(error);
+    }
+  };
 }
